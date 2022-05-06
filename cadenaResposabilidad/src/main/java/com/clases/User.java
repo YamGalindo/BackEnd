@@ -6,27 +6,40 @@ public abstract class User {
     private int nivelAcceso;
     private String nombre;
 
+    public User(String nombre, int nivelAcceso){
+        this.nombre = nombre;
+        this.nivelAcceso = nivelAcceso;
+    }
+
     public String procesarDocumento(Documento documento) {
 
         String respuesta = "";
 
-        if (this.getNivelAcceso() >= documento.gettipoAcceso()) {
+        if (this.hasAcceso(documento)) {
 
-            respuesta += this.getNombre() + documento.getcontenido() + "\n";
+            respuesta += this.getNombreConDocumento(documento);
 
         }
         User siguiente = this.getSiguienteUsuario();
         while (siguiente != null) {
-            if (siguiente.getNivelAcceso() >= documento.gettipoAcceso()) {
-                respuesta += siguiente.getNombre() + documento.getcontenido() + "\n";
+            if (siguiente.hasAcceso(documento)) {
+                respuesta += siguiente.getNombreConDocumento(documento);
             }
             siguiente = siguiente.getSiguienteUsuario();
         }
-        System.out.println(respuesta);
+
         return respuesta;
     }
 
-    public User getSiguienteUsuario() {
+    private boolean hasAcceso(Documento documento){
+        return this.getNivelAcceso() >= documento.gettipoAcceso();
+    }
+
+    private String getNombreConDocumento(Documento documento){
+        return this.getNombre() + " " + documento.getcontenido() + "\n";
+    }
+
+    private User getSiguienteUsuario() {
         return siguienteUsuario;
     }
 
@@ -34,19 +47,12 @@ public abstract class User {
         this.siguienteUsuario = user;
     }
 
-    public int getNivelAcceso() {
+    private int getNivelAcceso() {
         return nivelAcceso;
     }
 
-    public void setNivelAcceso(int nivelAcceso) {
-        this.nivelAcceso = nivelAcceso;
-    }
-
-    public String getNombre() {
+    private String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }

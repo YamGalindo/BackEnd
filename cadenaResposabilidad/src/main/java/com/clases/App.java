@@ -3,16 +3,15 @@ package com.clases;
 public class App {
     public static void main( String[] args ) {
 
-        Documento documento = new Documento(1, "hola");
+        Documento saludo = new Documento(1, "hola");
 
-        User user1 = new Diputado("xd");
-        User user2 = new Ministro("xd2");
-        User user3 = new Presidente("xd3");
+        User diputado = new Diputado("Soy un diputado");
+        User ministro = new Ministro("Soy un ministro");
+        User presidente = new Presidente("Soy un Presidente");
 
-        user1.setsiguienteUsuario(user2);
-        user2.setsiguienteUsuario(user3);
+        diputado.setsiguienteUsuario(ministro);
+        ministro.setsiguienteUsuario(presidente);
 
-
-        user1.procesarDocumento(documento);
+        diputado.procesarDocumento(saludo);
     }
 }

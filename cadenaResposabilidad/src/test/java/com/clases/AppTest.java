@@ -26,7 +26,27 @@ public class AppTest
         user2.setsiguienteUsuario(user3);
 
 
-        Assert.assertEquals("xdhola\nxd2hola\nxd3hola\n",user1.procesarDocumento(documento));
+        Assert.assertEquals("xd hola\nxd2 hola\nxd3 hola\n",user1.procesarDocumento(documento));
+    }
+
+    @Test
+    public void probarProcesarDocumentosAccesLvl2(){
+        Documento unPocoMasSeguro  = new Documento(2, "Cuasi-clasificado");
+
+        User diputado = new Diputado("Soy dipudato");
+        User ministro1 = new Ministro("Soy ministro1");
+        User presidente = new Presidente("Soy el presidente");
+        User ministro2 = new Ministro("Soy ministro2");
+
+        String esperado = "Soy ministro1 Cuasi-clasificado\n"
+            + "Soy el presidente Cuasi-clasificado\n"
+            + "Soy ministro2 Cuasi-clasificado\n";
+
+        diputado.setsiguienteUsuario(ministro1);
+        ministro1.setsiguienteUsuario(presidente);
+        presidente.setsiguienteUsuario(ministro2);
+
+        Assert.assertEquals(esperado, diputado.procesarDocumento(unPocoMasSeguro));
     }
 
 

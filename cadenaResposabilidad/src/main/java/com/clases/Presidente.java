@@ -2,16 +2,8 @@ package com.clases;
 
 public class Presidente extends User{
 
-    private int nivelAcceso = 3;
-
     public Presidente(String nombre) {
-        setNivelAcceso(this.nivelAcceso);
-        setNombre(nombre);
-
+        super(nombre, 3);
     }
 
-    @Override
-    public String procesarDocumento(Documento documento) {
-        return super.procesarDocumento(documento);
-    }
 }
